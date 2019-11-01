@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>org.niknam.buildkite.buildkite-plugin</id>
+    <name>Buildkite</name>
+    <vendor email="mhmd.niknam@gmail.com" url="http://buildkite-plugin.niknam.org">Niknam.org</vendor>
+
+    <description><![CDATA[
+    Buildkite plugin with features:
+    * running builds
+    * list current builds
+    * build notification
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>

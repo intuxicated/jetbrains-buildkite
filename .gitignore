@@ -1,0 +1,12 @@
+# intelij
+.idea/
+
+# CMake
+cmake-build-*/
+
+# Gradle
+.gradle
+/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
