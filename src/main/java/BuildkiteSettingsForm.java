@@ -1,9 +1,6 @@
-import com.intellij.uiDesigner.core.GridLayoutManager;
-
 import javax.swing.*;
-import java.awt.*;
 
-public class SettingsForm {
+public class BuildkiteSettingsForm {
     private JPanel rootPanel;
     private JTextField accessTokenAPI;
     private JButton verifyAccessTokenButton;
@@ -11,5 +8,13 @@ public class SettingsForm {
 
     public JPanel getRootPanel() {
         return rootPanel;
+    }
+
+    public String getAccessTokenAPIText() {
+        return accessTokenAPI.getText();
+    }
+
+    public void setAccessTokenAPIText(String accessTokenAPIText) {
+        accessTokenAPI.setText(accessTokenAPIText);
     }
 }

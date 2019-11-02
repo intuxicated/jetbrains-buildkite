@@ -16,7 +16,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationConfigurable groupId="tools" displayName="Buildkite Plugin" id="buildkite.settings" instance="SettingsConfigurable" />
+        <applicationService serviceImplementation="BuildkiteSettings" />
+        <applicationConfigurable groupId="tools" displayName="Buildkite Plugin" id="buildkite.settings" instance="BuildkiteSettingsConfigurable" />
     </extensions>
 
     <actions>
