@@ -1,3 +1,5 @@
+package settings;
+
 import javax.swing.*;
 
 public class BuildkiteSettingsForm {
