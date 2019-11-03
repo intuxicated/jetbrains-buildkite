@@ -18,9 +18,14 @@
         <!-- Add your extensions here -->
         <applicationService serviceImplementation="settings.BuildkiteSettings" />
         <applicationConfigurable groupId="tools" displayName="Buildkite Plugin" id="buildkite.settings" instance="settings.BuildkiteSettingsConfigurable" />
+        <applicationService serviceImplementation="buildkite.BuildkiteClient" />
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
+        <action id="BuildkiteTriggerBuild" class="actions.BuildkiteTriggerBuild" text="Trigger Build"
+                description="Trigger buildkite build">
+            <add-to-group group-id="NavBarToolBar" anchor="first"/>
+        </action>
     </actions>
 </idea-plugin>
