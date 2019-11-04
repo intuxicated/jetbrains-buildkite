@@ -1,15 +1,15 @@
 package buildkite.response;
 
 public class AccessTokenResponse {
-    private String id;
+    private String uuid;
     private String[] scopes;
 
-    public String getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String[] getScopes() {
