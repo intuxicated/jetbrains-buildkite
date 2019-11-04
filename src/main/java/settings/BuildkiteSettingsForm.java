@@ -43,6 +43,7 @@ public class BuildkiteSettingsForm {
                     @Override
                     public void onFailure(Call<AccessTokenResponse> call, Throwable t) {
                         logger.error(t);
+                        verifyAccessTokenResultTextPane.setText("Unable to verify Access Token API");
                         verifyAccessTokenButton.setEnabled(true);
                     }
                 });
