@@ -24,7 +24,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="BuildkiteTriggerBuild" class="actions.BuildkiteTriggerBuild" text="Trigger Build"
-                description="Trigger buildkite build">
+                description="Trigger buildkite build"  icon="/icons/buildkite-light-logo-only.svg">
             <add-to-group group-id="NavBarToolBar" anchor="first"/>
         </action>
     </actions>
