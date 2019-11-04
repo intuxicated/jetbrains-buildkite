@@ -14,9 +14,10 @@ import java.awt.event.MouseEvent;
 
 public class BuildkiteSettingsForm {
     private JPanel rootPanel;
-    private JTextField accessTokenAPI;
+    private JTextField accessTokenAPIField;
     private JButton verifyAccessTokenButton;
     private JLabel verifyAccessTokenResultTextPane;
+    private JTextField organizationField;
     private Logger logger = Logger.getInstance(BuildkiteSettingsForm.class);
 
     public BuildkiteSettingsForm() {
@@ -26,7 +27,7 @@ public class BuildkiteSettingsForm {
                 super.mouseClicked(e);
                 verifyAccessTokenButton.setEnabled(false);
                 verifyAccessTokenResultTextPane.setText("");
-                BuildkiteService buildkiteService = BuildkiteService.getInstance(accessTokenAPI.getText());
+                BuildkiteService buildkiteService = BuildkiteService.getInstance(accessTokenAPIField.getText());
                 buildkiteService.getAccessToken().enqueue(new Callback<AccessTokenResponse>() {
                     @Override
                     public void onResponse(Call<AccessTokenResponse> call, Response<AccessTokenResponse> response) {
@@ -55,11 +56,19 @@ public class BuildkiteSettingsForm {
         return rootPanel;
     }
 
-    public String getAccessTokenAPIText() {
-        return accessTokenAPI.getText();
+    public String getAccessTokenAPI() {
+        return accessTokenAPIField.getText();
     }
 
-    public void setAccessTokenAPIText(String accessTokenAPIText) {
-        accessTokenAPI.setText(accessTokenAPIText);
+    public void setAccessTokenAPI(String accessTokenAPI) {
+        accessTokenAPIField.setText(accessTokenAPI);
+    }
+
+    public String getOrganization() {
+        return organizationField.getText();
+    }
+
+    public void setOrganization(String organization) {
+        organizationField.setText(organization);
     }
 }

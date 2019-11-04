@@ -13,7 +13,12 @@ import org.jetbrains.annotations.Nullable;
 )
 public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSettings> {
 
-    public String accessTokenAPI = "";
+    private String accessTokenAPI = "";
+    private String organization = "";
+
+    public String getOrganization() { return organization; }
+
+    public void setOrganization(String organization) { this.organization = organization; }
 
     public String getAccessTokenAPI() {
         return accessTokenAPI;

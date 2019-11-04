@@ -31,23 +31,25 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
     @Override
     public JComponent createComponent() {
         settingForm = new BuildkiteSettingsForm();
-        loadAccessTokenAPIFromSetting();
+        loadConfigurationIntoForm();
         return settingForm.getRootPanel();
     }
 
     @Override
     public boolean isModified() {
-        return !Comparing.equal(settingForm.getAccessTokenAPIText(), buildkiteSettings.getAccessTokenAPI());
+        return !Comparing.equal(settingForm.getAccessTokenAPI(), buildkiteSettings.getAccessTokenAPI()) ||
+                !Comparing.equal(settingForm.getOrganization(), buildkiteSettings.getOrganization());
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        buildkiteSettings.setAccessTokenAPI(settingForm.getAccessTokenAPIText());
+        buildkiteSettings.setAccessTokenAPI(settingForm.getAccessTokenAPI());
+        buildkiteSettings.setOrganization(settingForm.getOrganization());
     }
 
     @Override
     public void reset() {
-        loadAccessTokenAPIFromSetting();
+        loadConfigurationIntoForm();
     }
 
     @Override
@@ -55,8 +57,9 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
         settingForm = null;
     }
 
-    private void loadAccessTokenAPIFromSetting()
+    private void loadConfigurationIntoForm()
     {
-        settingForm.setAccessTokenAPIText(buildkiteSettings.getAccessTokenAPI());
+        settingForm.setOrganization(buildkiteSettings.getOrganization());
+        settingForm.setAccessTokenAPI(buildkiteSettings.getAccessTokenAPI());
     }
 }
