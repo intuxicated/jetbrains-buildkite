@@ -32,10 +32,11 @@ public class BuildkiteSettingsForm {
                     @Override
                     public void onResponse(Call<AccessTokenResponse> call, Response<AccessTokenResponse> response) {
                         if (response.isSuccessful()) {
+                            logger.debug(response.body().toString());
+                            logger.debug(response.headers().toString());
                             verifyAccessTokenResultTextPane.setText("Access Token API is VALID");
                             verifyAccessTokenResultTextPane.setForeground(Color.GREEN);
                         } else {
-                            logger.error(response.body());
                             verifyAccessTokenResultTextPane.setText("Access Token API is INVALID");
                             verifyAccessTokenResultTextPane.setForeground(Color.RED);
                         }
@@ -44,8 +45,8 @@ public class BuildkiteSettingsForm {
 
                     @Override
                     public void onFailure(Call<AccessTokenResponse> call, Throwable t) {
-                        verifyAccessTokenButton.setEnabled(true);
                         logger.error(t);
+                        verifyAccessTokenButton.setEnabled(true);
                     }
                 });
             }

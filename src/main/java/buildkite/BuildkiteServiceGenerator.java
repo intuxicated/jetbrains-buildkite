@@ -28,9 +28,9 @@ public class BuildkiteServiceGenerator {
             token = buildkiteSettings.getAccessTokenAPI();
         }
         String finalToken = token;
+        httpClient.interceptors().clear();
+        httpClient.addInterceptor(logging);
         if (!finalToken.equals("")) {
-            httpClient.interceptors().clear();
-            httpClient.addInterceptor(logging);
             httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 Request request = original.newBuilder()
@@ -38,9 +38,9 @@ public class BuildkiteServiceGenerator {
                         .build();
                 return chain.proceed(request);
             });
-            builder.client(httpClient.build());
-            retrofit = builder.build();
         }
+        builder.client(httpClient.build());
+        retrofit = builder.build();
         return retrofit.create(serviceClass);
     }
 }
