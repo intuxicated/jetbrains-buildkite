@@ -3,7 +3,6 @@ package settings;
 import buildkite.BuildkiteService;
 import buildkite.response.AccessTokenResponse;
 import com.intellij.openapi.diagnostic.Logger;
-import jdk.internal.jline.internal.Log;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,8 +31,6 @@ public class BuildkiteSettingsForm {
                     @Override
                     public void onResponse(Call<AccessTokenResponse> call, Response<AccessTokenResponse> response) {
                         if (response.isSuccessful()) {
-                            logger.debug(response.body().toString());
-                            logger.debug(response.headers().toString());
                             verifyAccessTokenResultTextPane.setText("Access Token API is VALID");
                             verifyAccessTokenResultTextPane.setForeground(Color.GREEN);
                         } else {
