@@ -1,5 +1,6 @@
 package settings;
 
+import buildkite.response.OrganizationResponse;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
@@ -12,18 +13,15 @@ import org.jetbrains.annotations.Nullable;
         storages = {@Storage("BuildkitePlugin.xml")}
 )
 public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSettings> {
-
     private String accessTokenAPI = "";
-    private String organization = "";
+    private OrganizationResponse organization;
 
-    public String getOrganization() { return organization; }
-
-    public void setOrganization(String organization) { this.organization = organization; }
+    public OrganizationResponse getOrganization() { return organization; }
+    public void setOrganization(OrganizationResponse organization) { this.organization = organization; }
 
     public String getAccessTokenAPI() {
         return accessTokenAPI;
     }
-
     public void setAccessTokenAPI(String accessTokenAPI) {
         this.accessTokenAPI = accessTokenAPI;
     }

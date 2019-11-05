@@ -2,23 +2,32 @@ package settings;
 
 import buildkite.BuildkiteService;
 import buildkite.response.AccessTokenResponse;
+import buildkite.response.OrganizationResponse;
 import com.intellij.openapi.diagnostic.Logger;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class BuildkiteSettingsForm {
     private JPanel rootPanel;
     private JTextField accessTokenAPIField;
     private JButton verifyAccessTokenButton;
     private JLabel verifyAccessTokenResultTextPane;
-    private JTextField organizationField;
+    private JComboBox organizationComboBox;
+    private JButton organizationRefreshButton;
+    private List<OrganizationResponse> organizationResponseList;
     private Logger logger = Logger.getInstance(BuildkiteSettingsForm.class);
+    private final BuildkiteSettingsCache buildkiteSettingsCache = BuildkiteSettingsCache.getInstance();
+
 
     public BuildkiteSettingsForm() {
         verifyAccessTokenButton.addMouseListener(new MouseAdapter() {
@@ -50,6 +59,37 @@ public class BuildkiteSettingsForm {
                 });
             }
         });
+
+        organizationRefreshButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                organizationRefreshButton.setEnabled(false);
+                organizationComboBox.removeAllItems();
+                BuildkiteService buildkiteService = BuildkiteService.getInstance(accessTokenAPIField.getText());
+                buildkiteService.getOrganizations().enqueue(new Callback<List<OrganizationResponse>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<OrganizationResponse>> call, @NotNull Response<List<OrganizationResponse>> response) {
+                        organizationComboBox.removeAllItems();
+                        if (response.isSuccessful()) {
+                            List<OrganizationResponse> organizationResponseList = response.body();
+                            setOrganizationList(organizationResponseList);
+                            buildkiteSettingsCache.setOrganizationResponseList(organizationResponseList);
+                        } else {
+                            logger.error(response.raw());
+                        }
+                        organizationRefreshButton.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<OrganizationResponse>> call, Throwable t) {
+                        logger.error(t);
+                        organizationComboBox.removeAllItems();
+                        organizationRefreshButton.setEnabled(true);
+                    }
+                });
+            }
+        });
     }
 
     public JPanel getRootPanel() {
@@ -64,11 +104,23 @@ public class BuildkiteSettingsForm {
         accessTokenAPIField.setText(accessTokenAPI);
     }
 
-    public String getOrganization() {
-        return organizationField.getText();
+    public OrganizationResponse getOrganization() {
+        return (OrganizationResponse)organizationComboBox.getSelectedItem();
     }
 
-    public void setOrganization(String organization) {
-        organizationField.setText(organization);
+    public void setOrganization(OrganizationResponse organization) {
+        organizationComboBox.setSelectedItem(organization);
+    }
+
+    public List<OrganizationResponse> getOrganizationResponseList() {
+        return organizationResponseList;
+    }
+
+    public void setOrganizationList(List<OrganizationResponse> organizationResponseList) {
+        if (!organizationResponseList.isEmpty()) {
+            organizationComboBox.removeAllItems();
+            organizationResponseList.forEach(organizationResponse -> organizationComboBox.addItem(organizationResponse));
+            this.organizationResponseList = organizationResponseList;
+        }
     }
 }

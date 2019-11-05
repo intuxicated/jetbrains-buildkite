@@ -1,12 +1,12 @@
 package buildkite;
 
+import retrofit2.Call;
+import retrofit2.http.GET;
+import java.util.List;
+
 import buildkite.response.AccessTokenResponse;
 import buildkite.response.HelloWorldResponse;
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
+import buildkite.response.OrganizationResponse;
 
 public interface BuildkiteService {
     @GET("/")
@@ -14,6 +14,9 @@ public interface BuildkiteService {
 
     @GET("/v2/access-token")
     Call<AccessTokenResponse> getAccessToken();
+
+    @GET("/v2/organizations")
+    Call<List<OrganizationResponse>> getOrganizations();
 
     public static BuildkiteService getInstance() {
         return BuildkiteServiceGenerator.createService(BuildkiteService.class, null);

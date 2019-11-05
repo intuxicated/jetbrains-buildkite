@@ -14,6 +14,7 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     private BuildkiteSettingsForm settingForm;
     private final BuildkiteSettings buildkiteSettings = ServiceManager.getService(BuildkiteSettings.class);
+    private final BuildkiteSettingsCache buildkiteSettingsCache = BuildkiteSettingsCache.getInstance();
 
     @NotNull
     @Override
@@ -61,5 +62,6 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
     {
         settingForm.setOrganization(buildkiteSettings.getOrganization());
         settingForm.setAccessTokenAPI(buildkiteSettings.getAccessTokenAPI());
+        settingForm.setOrganizationList(buildkiteSettingsCache.getOrganizationResponseList());
     }
 }
