@@ -1,21 +1,19 @@
 package settings;
 
-import buildkite.BuildkiteService;
-import buildkite.response.AccessTokenResponse;
-import buildkite.response.OrganizationResponse;
 import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+
+import buildkite.BuildkiteService;
+import buildkite.response.AccessTokenResponse;
+import buildkite.response.OrganizationResponse;
 
 public class BuildkiteSettingsForm {
     private JPanel rootPanel;

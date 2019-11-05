@@ -1,11 +1,12 @@
 package buildkite;
 
-import com.intellij.openapi.components.ServiceManager;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+
 import settings.BuildkiteSettings;
 
 public class BuildkiteServiceGenerator {
@@ -19,11 +20,11 @@ public class BuildkiteServiceGenerator {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-    private static BuildkiteSettings buildkiteSettings = ServiceManager.getService(BuildkiteSettings.class);
+    private static BuildkiteSettings buildkiteSettings = BuildkiteSettings.getInstance();
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC);
 
-    public static <S> S createService(Class<S> serviceClass, String token) {
+    public static <S> S createService(Class<S> serviceClass, @Nullable String token) {
         if (token == null) {
             token = buildkiteSettings.getAccessTokenAPI();
         }

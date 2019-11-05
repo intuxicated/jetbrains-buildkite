@@ -1,12 +1,14 @@
 package settings;
 
-import buildkite.response.OrganizationResponse;
 import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import buildkite.response.OrganizationResponse;
 
 @State(
         name = "BuildkiteConfig",
@@ -35,5 +37,9 @@ public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSett
     @Override
     public void loadState(@NotNull BuildkiteSettings buildkiteSettings) {
         XmlSerializerUtil.copyBean(buildkiteSettings, this);
+    }
+
+    public static BuildkiteSettings getInstance() {
+        return ServiceManager.getService(BuildkiteSettings.class);
     }
 }

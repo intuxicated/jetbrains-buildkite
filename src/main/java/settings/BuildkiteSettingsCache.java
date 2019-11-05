@@ -1,13 +1,13 @@
 package settings;
 
-import buildkite.response.OrganizationResponse;
 import com.intellij.openapi.components.*;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.Collections;
 import java.util.List;
+
+import buildkite.response.OrganizationResponse;
 
 @State(
         name = "BuildkiteConfigCache",

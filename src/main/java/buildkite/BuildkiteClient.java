@@ -1,12 +1,12 @@
 package buildkite;
 
-import buildkite.response.AccessTokenResponse;
-import buildkite.response.HelloWorldResponse;
 import com.intellij.openapi.components.ServiceManager;
 import retrofit2.Call;
 import retrofit2.Response;
-
 import java.io.IOException;
+
+import buildkite.response.AccessTokenResponse;
+import buildkite.response.HelloWorldResponse;
 
 public class BuildkiteClient {
     private BuildkiteService service = BuildkiteService.getInstance();
