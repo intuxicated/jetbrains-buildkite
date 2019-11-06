@@ -1,6 +1,7 @@
 package settings;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,10 +25,10 @@ public class BuildkiteSettingsForm {
     private JButton organizationRefreshButton;
     private List<OrganizationResponse> organizationResponseList;
     private Logger logger = Logger.getInstance(BuildkiteSettingsForm.class);
-    private final BuildkiteSettingsCache buildkiteSettingsCache = BuildkiteSettingsCache.getInstance();
+    private final BuildkiteSettingsProjectCacheService buildkiteSettingsCache;
 
-
-    public BuildkiteSettingsForm() {
+    public BuildkiteSettingsForm(Project project) {
+        buildkiteSettingsCache = BuildkiteSettingsProjectCacheService.getInstance(project);
         verifyAccessTokenButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

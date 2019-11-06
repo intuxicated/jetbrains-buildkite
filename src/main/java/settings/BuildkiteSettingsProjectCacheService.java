@@ -1,6 +1,7 @@
 package settings;
 
 import com.intellij.openapi.components.*;
+import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,8 +14,8 @@ import buildkite.response.OrganizationResponse;
         name = "BuildkiteConfigCache",
         storages = {@Storage("BuildkitePluginCache.xml")}
 )
-public class BuildkiteSettingsCache implements PersistentStateComponent<BuildkiteSettingsCache> {
-    private List<OrganizationResponse> organizationResponseList = Collections.<OrganizationResponse>emptyList();;
+public class BuildkiteSettingsProjectCacheService implements PersistentStateComponent<BuildkiteSettingsProjectCacheService> {
+    private List<OrganizationResponse> organizationResponseList = Collections.emptyList();
 
     public List<OrganizationResponse> getOrganizationResponseList() {
         return organizationResponseList;
@@ -26,16 +27,16 @@ public class BuildkiteSettingsCache implements PersistentStateComponent<Buildkit
 
     @Nullable
     @Override
-    public BuildkiteSettingsCache getState() {
+    public BuildkiteSettingsProjectCacheService getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull BuildkiteSettingsCache buildkiteSettingsCache) {
+    public void loadState(@NotNull BuildkiteSettingsProjectCacheService buildkiteSettingsCache) {
         XmlSerializerUtil.copyBean(buildkiteSettingsCache, this);
     }
 
-    public static BuildkiteSettingsCache getInstance() {
-        return ServiceManager.getService(BuildkiteSettingsCache.class);
+    public static BuildkiteSettingsProjectCacheService getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, BuildkiteSettingsProjectCacheService.class);
     }
 }

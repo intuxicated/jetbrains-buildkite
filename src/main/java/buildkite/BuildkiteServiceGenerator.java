@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import settings.BuildkiteSettings;
+import settings.BuildkiteSettingsAppService;
 
 public class BuildkiteServiceGenerator {
     final static String BUILDKITE_API_URL = "https://api.buildkite.com";
@@ -20,7 +20,7 @@ public class BuildkiteServiceGenerator {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-    private static BuildkiteSettings buildkiteSettings = BuildkiteSettings.getInstance();
+    private static BuildkiteSettingsAppService buildkiteSettings = BuildkiteSettingsAppService.getInstance();
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC);
 

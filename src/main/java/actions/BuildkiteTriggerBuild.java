@@ -5,14 +5,14 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.options.ShowSettingsUtil;
-import settings.BuildkiteSettings;
+import settings.BuildkiteSettingsAppService;
 import settings.BuildkiteSettingsConfigurable;
 
 import java.io.IOException;
 
 public class BuildkiteTriggerBuild extends AnAction {
 
-    private static BuildkiteSettings buildkiteSettings = BuildkiteSettings.getInstance();
+    private static BuildkiteSettingsAppService buildkiteSettings = BuildkiteSettingsAppService.getInstance();
 
     @Override
     public void actionPerformed(AnActionEvent event) {

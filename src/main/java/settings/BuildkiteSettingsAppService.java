@@ -12,9 +12,9 @@ import buildkite.response.OrganizationResponse;
 
 @State(
         name = "BuildkiteConfig",
-        storages = {@Storage("BuildkitePlugin.xml")}
+        storages = {@Storage("BuildkitePluginApp.xml")}
 )
-public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSettings> {
+public class BuildkiteSettingsAppService implements PersistentStateComponent<BuildkiteSettingsAppService> {
     private String accessTokenAPI = "";
     private OrganizationResponse organization;
 
@@ -30,16 +30,16 @@ public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSett
 
     @Nullable
     @Override
-    public BuildkiteSettings getState() {
+    public BuildkiteSettingsAppService getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull BuildkiteSettings buildkiteSettings) {
+    public void loadState(@NotNull BuildkiteSettingsAppService buildkiteSettings) {
         XmlSerializerUtil.copyBean(buildkiteSettings, this);
     }
 
-    public static BuildkiteSettings getInstance() {
-        return ServiceManager.getService(BuildkiteSettings.class);
+    public static BuildkiteSettingsAppService getInstance() {
+        return ServiceManager.getService(BuildkiteSettingsAppService.class);
     }
 }
