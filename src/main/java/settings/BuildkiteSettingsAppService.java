@@ -16,10 +16,6 @@ import buildkite.response.OrganizationResponse;
 )
 public class BuildkiteSettingsAppService implements PersistentStateComponent<BuildkiteSettingsAppService> {
     private String accessTokenAPI = "";
-    private OrganizationResponse organization;
-
-    public OrganizationResponse getOrganization() { return organization; }
-    public void setOrganization(OrganizationResponse organization) { this.organization = organization; }
 
     public String getAccessTokenAPI() {
         return accessTokenAPI;

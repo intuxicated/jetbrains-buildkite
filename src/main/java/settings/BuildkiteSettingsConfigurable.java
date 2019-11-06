@@ -13,6 +13,7 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     private BuildkiteSettingsForm settingForm;
     private final BuildkiteSettingsAppService buildkiteSettings;
+    private final BuildkiteSettingsProjectService buildkiteSettingsProject;
     private final BuildkiteSettingsProjectCacheService buildkiteSettingsCache;
     private Project project;
 
@@ -20,6 +21,7 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
         this.project = project;
         buildkiteSettings = BuildkiteSettingsAppService.getInstance();
         buildkiteSettingsCache = BuildkiteSettingsProjectCacheService.getInstance(project);
+        buildkiteSettingsProject = BuildkiteSettingsProjectService.getInstance(project);
     }
 
     @NotNull
@@ -45,13 +47,15 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
     @Override
     public boolean isModified() {
         return !Comparing.equal(settingForm.getAccessTokenAPI(), buildkiteSettings.getAccessTokenAPI()) ||
-                !Comparing.equal(settingForm.getOrganization(), buildkiteSettings.getOrganization());
+                !Comparing.equal(settingForm.getOrganization(), buildkiteSettingsProject.getOrganization()) ||
+                !Comparing.equal(settingForm.getPipeline(), buildkiteSettingsProject.getPipeline());
     }
 
     @Override
     public void apply() throws ConfigurationException {
         buildkiteSettings.setAccessTokenAPI(settingForm.getAccessTokenAPI());
-        buildkiteSettings.setOrganization(settingForm.getOrganization());
+        buildkiteSettingsProject.setOrganization(settingForm.getOrganization());
+        buildkiteSettingsProject.setPipeline(settingForm.getPipeline());
     }
 
     @Override
@@ -66,8 +70,10 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     private void loadConfigurationIntoForm()
     {
-        settingForm.setOrganization(buildkiteSettings.getOrganization());
         settingForm.setAccessTokenAPI(buildkiteSettings.getAccessTokenAPI());
+        settingForm.setOrganization(buildkiteSettingsProject.getOrganization());
+        settingForm.setPipeline(buildkiteSettingsProject.getPipeline());
         settingForm.setOrganizationList(buildkiteSettingsCache.getOrganizationResponseList());
+        settingForm.setPipelineList(buildkiteSettingsCache.getPipelineResponsesList());
     }
 }

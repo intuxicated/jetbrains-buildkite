@@ -1,5 +1,6 @@
 package settings;
 
+import buildkite.response.PipelineResponse;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
@@ -16,6 +17,7 @@ import buildkite.response.OrganizationResponse;
 )
 public class BuildkiteSettingsProjectCacheService implements PersistentStateComponent<BuildkiteSettingsProjectCacheService> {
     private List<OrganizationResponse> organizationResponseList = Collections.emptyList();
+    private List<PipelineResponse> pipelineResponsesList = Collections.emptyList();
 
     public List<OrganizationResponse> getOrganizationResponseList() {
         return organizationResponseList;
@@ -23,6 +25,14 @@ public class BuildkiteSettingsProjectCacheService implements PersistentStateComp
 
     public void setOrganizationResponseList(List<OrganizationResponse> organizationResponseList) {
         this.organizationResponseList = organizationResponseList;
+    }
+
+    public List<PipelineResponse> getPipelineResponsesList() {
+        return pipelineResponsesList;
+    }
+
+    public void setPipelineResponsesList(List<PipelineResponse> pipelineResponsesList) {
+        this.pipelineResponsesList = pipelineResponsesList;
     }
 
     @Nullable
