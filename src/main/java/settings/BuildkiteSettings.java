@@ -33,6 +33,12 @@ public class BuildkiteSettings implements PersistentStateComponent<BuildkiteSett
     public PipelineResponse getPipeline() { return pipeline; }
     public void setPipeline(PipelineResponse pipeline) { this.pipeline = pipeline; }
 
+    public Boolean canRequestCreateBuild() {
+        return !(getAccessTokenAPI().equals("")) &&
+                (getOrganization() != null) &&
+                (getPipeline() != null);
+    }
+
     public static BuildkiteSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, BuildkiteSettings.class);
     }
