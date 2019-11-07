@@ -41,4 +41,12 @@ public class PipelineResponse {
     public String toString() {
         return this.name;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PipelineResponse)) return false;
+
+        return ((PipelineResponse) obj).getId().equals(getId());
+    }
 }

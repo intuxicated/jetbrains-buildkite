@@ -12,16 +12,14 @@ import javax.swing.*;
 public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     private BuildkiteSettingsForm settingForm;
-    private final BuildkiteSettingsAppService buildkiteSettings;
-    private final BuildkiteSettingsProjectService buildkiteSettingsProject;
-    private final BuildkiteSettingsProjectCacheService buildkiteSettingsCache;
+    private final BuildkiteSettings buildkiteSettingsProject;
+    private final BuildkiteSettingsCache buildkiteSettingsCache;
     private Project project;
 
     public BuildkiteSettingsConfigurable(@NotNull Project project) {
         this.project = project;
-        buildkiteSettings = BuildkiteSettingsAppService.getInstance();
-        buildkiteSettingsCache = BuildkiteSettingsProjectCacheService.getInstance(project);
-        buildkiteSettingsProject = BuildkiteSettingsProjectService.getInstance(project);
+        buildkiteSettingsCache = BuildkiteSettingsCache.getInstance(project);
+        buildkiteSettingsProject = BuildkiteSettings.getInstance(project);
     }
 
     @NotNull
@@ -46,14 +44,14 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     @Override
     public boolean isModified() {
-        return !Comparing.equal(settingForm.getAccessTokenAPI(), buildkiteSettings.getAccessTokenAPI()) ||
+        return !Comparing.equal(settingForm.getAccessTokenAPI(), buildkiteSettingsProject.getAccessTokenAPI()) ||
                 !Comparing.equal(settingForm.getOrganization(), buildkiteSettingsProject.getOrganization()) ||
                 !Comparing.equal(settingForm.getPipeline(), buildkiteSettingsProject.getPipeline());
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        buildkiteSettings.setAccessTokenAPI(settingForm.getAccessTokenAPI());
+        buildkiteSettingsProject.setAccessTokenAPI(settingForm.getAccessTokenAPI());
         buildkiteSettingsProject.setOrganization(settingForm.getOrganization());
         buildkiteSettingsProject.setPipeline(settingForm.getPipeline());
     }
@@ -70,7 +68,7 @@ public class BuildkiteSettingsConfigurable implements SearchableConfigurable {
 
     private void loadConfigurationIntoForm()
     {
-        settingForm.setAccessTokenAPI(buildkiteSettings.getAccessTokenAPI());
+        settingForm.setAccessTokenAPI(buildkiteSettingsProject.getAccessTokenAPI());
         settingForm.setOrganization(buildkiteSettingsProject.getOrganization());
         settingForm.setPipeline(buildkiteSettingsProject.getPipeline());
         settingForm.setOrganizationList(buildkiteSettingsCache.getOrganizationResponseList());

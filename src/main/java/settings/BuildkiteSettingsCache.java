@@ -15,7 +15,7 @@ import buildkite.response.OrganizationResponse;
         name = "BuildkiteConfigCache",
         storages = {@Storage("BuildkitePluginCache.xml")}
 )
-public class BuildkiteSettingsProjectCacheService implements PersistentStateComponent<BuildkiteSettingsProjectCacheService> {
+public class BuildkiteSettingsCache implements PersistentStateComponent<BuildkiteSettingsCache> {
     private List<OrganizationResponse> organizationResponseList = Collections.emptyList();
     private List<PipelineResponse> pipelineResponsesList = Collections.emptyList();
 
@@ -37,16 +37,16 @@ public class BuildkiteSettingsProjectCacheService implements PersistentStateComp
 
     @Nullable
     @Override
-    public BuildkiteSettingsProjectCacheService getState() {
+    public BuildkiteSettingsCache getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull BuildkiteSettingsProjectCacheService buildkiteSettingsCache) {
+    public void loadState(@NotNull BuildkiteSettingsCache buildkiteSettingsCache) {
         XmlSerializerUtil.copyBean(buildkiteSettingsCache, this);
     }
 
-    public static BuildkiteSettingsProjectCacheService getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, BuildkiteSettingsProjectCacheService.class);
+    public static BuildkiteSettingsCache getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, BuildkiteSettingsCache.class);
     }
 }

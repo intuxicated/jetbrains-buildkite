@@ -7,41 +7,31 @@ import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import settings.BuildkiteSettingsAppService;
-
-public class BuildkiteServiceGenerator {
-    final static String BUILDKITE_API_URL = "https://api.buildkite.com";
+class BuildkiteServiceGenerator {
+    private final static String BUILDKITE_API_URL = "https://api.buildkite.com";
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(BUILDKITE_API_URL)
             .addConverterFactory(JacksonConverterFactory.create());
 
-    private static Retrofit retrofit = builder.build();
-
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
-    private static BuildkiteSettingsAppService buildkiteSettings = BuildkiteSettingsAppService.getInstance();
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC);
 
     public static <S> S createService(Class<S> serviceClass, @Nullable String token) {
-        if (token == null) {
-            token = buildkiteSettings.getAccessTokenAPI();
-        }
-        String finalToken = token;
         httpClient.interceptors().clear();
         httpClient.addInterceptor(logging);
-        if (!finalToken.equals("")) {
+        if (!token.equals("")) {
             httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 Request request = original.newBuilder()
-                        .header("Authorization", "Bearer " + finalToken)
+                        .header("Authorization", "Bearer " + token)
                         .build();
                 return chain.proceed(request);
             });
         }
         builder.client(httpClient.build());
-        retrofit = builder.build();
+        Retrofit retrofit = builder.build();
         return retrofit.create(serviceClass);
     }
 }

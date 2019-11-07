@@ -36,4 +36,11 @@ public class OrganizationResponse {
     public String toString() {
         return getName();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OrganizationResponse)) return false;
+
+        return ((OrganizationResponse) obj).getId().equals(getId());
+    }
 }

@@ -16,11 +16,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationService serviceImplementation="settings.BuildkiteSettingsAppService" />
-        <applicationService serviceImplementation="buildkite.BuildkiteClient" />
-
-        <projectService serviceImplementation="settings.BuildkiteSettingsProjectCacheService" />
-        <projectService serviceImplementation="settings.BuildkiteSettingsProjectService"/>
+        <projectService serviceImplementation="settings.BuildkiteSettingsCache" />
+        <projectService serviceImplementation="settings.BuildkiteSettings"/>
 
         <projectConfigurable groupId="tools" displayName="Buildkite Plugin" id="buildkite.settings" instance="settings.BuildkiteSettingsConfigurable" />
     </extensions>

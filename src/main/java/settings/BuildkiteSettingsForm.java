@@ -29,10 +29,10 @@ public class BuildkiteSettingsForm {
     private List<OrganizationResponse> organizationResponseList;
     private List<PipelineResponse> pipelineResponseList;
     private Logger logger = Logger.getInstance(BuildkiteSettingsForm.class);
-    private final BuildkiteSettingsProjectCacheService buildkiteSettingsCache;
+    private final BuildkiteSettingsCache buildkiteSettingsCache;
 
     public BuildkiteSettingsForm(Project project) {
-        buildkiteSettingsCache = BuildkiteSettingsProjectCacheService.getInstance(project);
+        buildkiteSettingsCache = BuildkiteSettingsCache.getInstance(project);
         verifyAccessTokenButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
