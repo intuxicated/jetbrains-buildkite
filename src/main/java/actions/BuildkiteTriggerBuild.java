@@ -66,7 +66,7 @@ public class BuildkiteTriggerBuild extends AnAction {
 
                         BuildResponse buildResponse = response.body();
                         Notification notification = BuildkiteNotification.info(
-                                "Build Created!\n" +
+                                "Build Created!",
                                 "Build Id: " + buildResponse.getNumber().toString()
                         );
                         Notifications.Bus.notify(notification, project);

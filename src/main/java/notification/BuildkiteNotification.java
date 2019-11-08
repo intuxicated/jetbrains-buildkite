@@ -11,8 +11,8 @@ public class BuildkiteNotification {
         return new NotificationGroup("Buildkite Notification", NotificationDisplayType.BALLOON, true);
     }
 
-    public static Notification info(String message) {
-        return notificationGroup().createNotification(message, NotificationType.INFORMATION);
+    public static Notification info(String title, String message) {
+        return notificationGroup().createNotification(title, message, NotificationType.INFORMATION, null);
     }
 
 }
